@@ -1,6 +1,10 @@
 ﻿namespace ArtForumSystem.Web.ViewModels.Home
 {
-    public class IndexCategoryViewModel
+    using ArtForumSystem.Data.Models;
+    using ArtForumSystem.Services.Mapping;
+    using AutoMapper;
+
+    public class IndexCategoryViewModel : IMapFrom<Category>
     {
         public string Title { get; set; }
 
@@ -9,6 +13,8 @@
         public string Name { get; set; }
 
         public string ImageUrl { get; set; }
+
+        public int PostsCount { get; set; }
 
         public string Url => $"/f/{this.Name.Replace(' ', '-')}";
     }

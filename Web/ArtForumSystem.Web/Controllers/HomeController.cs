@@ -4,31 +4,30 @@
     using System.Linq;
 
     using ArtForumSystem.Data;
+    using ArtForumSystem.Data.Common.Repositories;
+    using ArtForumSystem.Data.Models;
+    using ArtForumSystem.Services.Data;
+    using ArtForumSystem.Services.Mapping;
     using ArtForumSystem.Web.ViewModels;
     using ArtForumSystem.Web.ViewModels.Home;
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : BaseController
     {
-        private readonly ApplicationDbContext db;
+        private readonly ICategoriesService categoriesService;
 
-        public HomeController(ApplicationDbContext db)
+        public HomeController(ICategoriesService categoriesService)
         {
-            this.db = db;
+            this.categoriesService = categoriesService;
         }
 
         public IActionResult Index()
         {
-            var viewModel = new IndexViewModel();
-            var categories = this.db.Categories.Select(x => new IndexCategoryViewModel
+            var viewModel = new IndexViewModel
             {
-                Description = x.Description,
-                ImageUrl = x.ImageUrl,
-                Name = x.Name,
-                Title = x.Title,
-            }).ToList();
-            viewModel.Categories = categories;
-
+                Categories =
+                    this.categoriesService.GetAll<IndexCategoryViewModel>(),
+            };
             return this.View(viewModel);
         }
 
