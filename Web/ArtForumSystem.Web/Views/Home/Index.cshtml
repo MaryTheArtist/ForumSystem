@@ -1,0 +1,23 @@
+﻿@using ArtForumSystem.Common
+@model ArtForumSystem.Web.ViewModels.Home.IndexViewModel
+@{
+    this.ViewData["Title"] = $"Welcome to {GlobalConstants.SystemName}!";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@this.ViewData["Title"]</h1>
+
+</div>
+
+<div class="row">
+    @foreach (var category in Model.Categories)
+    {
+        <div class="media col-md-4">
+            <img src="@category.ImageUrl" class="mr-3" alt="@category.Title" width="100" />
+            <div class="media-body">
+                <h5 class="mt-0"><a href="@category.Url">@category.Title</a></h5>
+                @category.Description
+            </div>
+        </div>
+    }
+</div>
