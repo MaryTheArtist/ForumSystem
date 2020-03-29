@@ -19,7 +19,6 @@
         private readonly IPostService postsService;
         private readonly ICategoriesService categoriesService;
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly IMapper mapper;
 
         public PostsController(
             IPostService postsService,
@@ -33,8 +32,6 @@
 
         public IActionResult ById(int id)
         {
-            // var postViewModel = this.postsService.GetById<PostViewModel>(id);
-            // TODO: read the post
             return this.View();
         }
 
