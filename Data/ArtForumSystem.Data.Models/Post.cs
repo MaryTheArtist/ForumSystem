@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Text;
 
     using ArtForumSystem.Data.Common.Models;
@@ -11,13 +12,14 @@
         public Post()
         {
             this.Comments = new HashSet<Comment>();
+            this.Votes = new HashSet<Vote>();
         }
 
         public string Title { get; set; }
 
         public string Content { get; set; }
 
-        // TODO: Required!
+        [Required]
         public string UserId { get; set; }
 
         public virtual ApplicationUser User { get; set; }
@@ -27,5 +29,7 @@
         public virtual Category Category { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
+
+        public virtual ICollection<Vote> Votes { get; set; }
     }
 }

@@ -1,10 +1,12 @@
 ﻿namespace ArtForumSystem.Services.Data
 {
     using System;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using ArtForumSystem.Data.Common.Repositories;
     using ArtForumSystem.Data.Models;
+    using ArtForumSystem.Services.Mapping;
 
     public class PostService : IPostService
     {
@@ -28,6 +30,13 @@
             await this.postsRepository.AddAsync(post);
             await this.postsRepository.SaveChangesAsync();
             return post.Id;
+        }
+
+        public T GetById<T>(int id)
+        {
+            var post = this.postsRepository.All().Where(x => x.Id == id)
+                .To<T>().FirstOrDefault();
+            return post;
         }
     }
 }
